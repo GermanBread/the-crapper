@@ -3,7 +3,7 @@
 let
   fhspkgs = with pkgs; [
     # Yeeted from steam-run
-    lsb-release pciutils python2 which perl xdg-utils iana-etc python3 procps usbutils sqlite libva pipewire.lib pango at-spi2-atk at-spi2-core gst_all_1.gstreamer gst_all_1.gst-plugins-ugly gst_all_1.gst-plugins-base json-glib libdrm libxkbcommon mono udev dbus zlib zettlr glib atk cairo fontconfig lsof file libGLU libuuid libbsd alsa-lib libidn2 libpsl nghttp2.lib openssl_1_1 rtmpdump libcap expat libelf bzip2 zlib gdk-pixbuf curl nspr nss cairo expat dbus cups libcap libusb1 dbus-glib ffmpeg atk libudev0-shim networkmanager098 libogg libvorbis libidn tbb flac freeglut libjpeg libpng12 libsamplerate libmikmod libtheora libtiff pixman speex libcaca libcanberra libgcrypt libvpx librsvg libvdpau
+    lsb-release pciutils python2 which perl xdg-utils iana-etc python3 procps usbutils sqlite libva pipewire.lib pango at-spi2-atk at-spi2-core gst_all_1.gstreamer gst_all_1.gst-plugins-ugly gst_all_1.gst-plugins-base json-glib libdrm libxkbcommon mono udev dbus zlib zettlr glib atk cairo fontconfig lsof file libGLU libuuid libbsd alsa-lib libidn2 libpsl nghttp2.lib openssl_1_1 rtmpdump libcap expat libelf bzip2 zlib gdk-pixbuf curl nspr nss cairo expat dbus cups libcap libusb1 dbus-glib ffmpeg atk libudev0-shim networkmanager libogg libvorbis libidn tbb flac freeglut libjpeg libpng12 libsamplerate libmikmod libtheora libtiff pixman speex libcaca libcanberra libgcrypt libvpx librsvg libvdpau
     
     icu
     krb5

@@ -4,7 +4,7 @@ let
   fhspkgs = with pkgs; [
     # Video
     xorg.xrandr
-    xlibs.libXext xlibs.libX11 xlibs.libXrender xlibs.libXtst xlibs.libXi xorg.libxcb xorg.libXdamage xorg.libxshmfence xorg.libXxf86vm xorg.libXinerama xorg.libXdamage xorg.libXcursor xorg.libXrender xorg.libXScrnSaver xorg.libXxf86vm xorg.libXi xorg.libSM xorg.libICE xorg.libXt xorg.libXmu xorg.libxcb
+    xorg.libXext xorg.libX11 xorg.libXrender xorg.libXtst xorg.libXi xorg.libxcb xorg.libXdamage xorg.libxshmfence xorg.libXxf86vm xorg.libXinerama xorg.libXdamage xorg.libXcursor xorg.libXrender xorg.libXScrnSaver xorg.libXxf86vm xorg.libXi xorg.libSM xorg.libICE xorg.libXt xorg.libXmu xorg.libxcb
     udev libGL libva libvdpau
     mesa.drivers expat wayland libelf
 
