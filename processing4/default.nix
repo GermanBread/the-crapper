@@ -12,6 +12,7 @@ let
     freetype fontconfig gdk-pixbuf dejavu_fonts source-code-pro
     
     # Audio
+    alsa-lib
     alsaUtils pipewire pipewire.pulse
     alsaLib alsaPlugins pipewire.lib pipewire.lib.pulse
     
@@ -24,18 +25,7 @@ let
     xdg-utils iana-etc lsb-release pciutils which
     zlib libcap rtkit
     dbus xdg-utils xdg-desktop-portal xdg-desktop-portal-gnome xdg-desktop-portal-kde xdg-desktop-portal-wlr
-
-    # Override
-    pipewire-alsa-conf
   ];
-
-  pipewire-alsa-conf = pkgs.stdenv.mkDerivation {
-    name = "pipewire-alsa-conf";
-    buildCommand = ''
-      mkdir -p $out/etc/alsa/conf.d
-      ln -sf /usr/share/alsa/alsa.conf.d/99-pipewire-default.conf $out/etc/alsa/conf.d/99-pipewire-default.conf
-    '';
-  };
 
   fhsenv = (pkgs.buildFHSUserEnv {
     name = "fhs-chroot";
@@ -45,6 +35,7 @@ let
 
   processing = builtins.fetchTarball {
     url = "https://github.com/processing/processing4/releases/download/processing-1279-4.0b4/processing-4.0b4-linux-x64.tgz";
+    sha256 = "108a84x43ihm05cmv66h42wyqxrvjz4f5gid1vmgd76iyc334rkg";
   };
 in
 
