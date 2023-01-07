@@ -8,28 +8,22 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "catsout";
     repo = "wallpaper-engine-kde-plugin";
-    rev = "v${version}";
-    sha256 = "sha256-VMOUNtAURTHDuJBOGz2N0+3VzxBmVNC1O8dVuyUZAa4=";
+    rev = "17ed549eee251043fc3962564daf5fce29fea952";
+    sha256 = "a0iwxu/V6vNWftfjQE/mY0wO0lEtVIkQVNZypUT/fdI=";
   };
 
-  postPatch = "rm build";
-  nativeBuildInputs = with pkgs; [ cmake extra-cmake-modules gnumake ];
-  buildInputs = with pkgs; [ plasma5Packages.plasma-framework mpv python38Packages.websockets vulkan-headers ];
+  nativeBuildInputs = with pkgs; [
+    cmake extra-cmake-modules gnumake mesa
 
-  preparePhase = ''
-    ls
-    exit 1
-    
-    mkdir build
-    cd build
-    cmake ..
-  '';
-  buildPhase = ''
-    make -j$nproc
-  '';
-  installPhase = ''
-    make DESTDIR=$out install
-  '';
+    mesa.libdrm mesa.osmesa lz4.dev glew libGLU
+    freeglut glew libGL libGLU mesa mesa.osmesa wayland
+    wayland-protocols
+  ];
+  buildInputs = with pkgs; [ mpv vulkan-headers ]
+    ++ (with pkgs.xorg; [ libX11 libXext ])
+    ++ (with pkgs.plasma5Packages;[ plasma-framework ])
+    ++ (with pkgs.libsForQt5;[ qtbase qtdeclarative qtwebsockets qtwebchannel qtx11extras ])
+    ++ (with pkgs.python38Packages; [ websockets ]);
 
   dontWrapQtApps = true;
 

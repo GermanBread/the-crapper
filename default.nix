@@ -7,6 +7,4 @@ in
   processing4 = pkgs.callPackage ./processing4 {};
   # can run .NET CLI tools
   fhs-run     = pkgs.callPackage ./fhs-run {};
-  # xournal++ for note-taking
-  xournalpp   = pkgs.libsForQt5.callPackage ./xournalpp {};
 }
