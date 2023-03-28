@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     ++ (with pkgs.libsForQt5; [ qtbase qtdeclarative qtwebsockets qtwebchannel qtx11extras ])
     ++ (with pkgs.python38Packages; [ websockets ]);
 
-  # dontWrapQtApps = true;
+  dontWrapQtApps = true;
 
   meta = with lib; {
     description = "Wallpaper Engine KDE plasma plugin";

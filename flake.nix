@@ -15,10 +15,9 @@
       fhs-run = pkgs.callPackage ./fhs-run;
       queercat = pkgs.callPackage ./queercat {};
       processing4 = pkgs.callPackage ./processing4 {};
-      wallpaper-engine-kde-plugin = pkgs.callPackage ./we-kde {};
+      wallpaper-engine-kde-plugin = pkgs.libsForQt5.callPackage ./we-kde {};
       
-      we-kde = throw "This package does not work yet.";
-      # we-kde = wallpaper-engine-kde-plugin;
+      we-kde = wallpaper-engine-kde-plugin;
     };
   };
 }
