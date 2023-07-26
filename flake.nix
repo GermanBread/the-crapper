@@ -11,13 +11,6 @@
       inherit system;
     };
   in {
-    packages.${system} = rec {
-      fhs-run = pkgs.callPackage ./fhs-run;
-      queercat = pkgs.callPackage ./queercat {};
-      processing4 = pkgs.callPackage ./processing4 {};
-      wallpaper-engine-kde-plugin = pkgs.libsForQt5.callPackage ./we-kde {};
-      
-      we-kde = wallpaper-engine-kde-plugin;
-    };
+    legacyPackages.${system} = pkgs.callPackage ./default.nix { };
   };
 }
