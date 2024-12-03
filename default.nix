@@ -1,10 +1,10 @@
-let
-  pkgs = import <nixpkgs> {};
-in
+{ pkgs ? import <nixpkgs> {} }:
 
-{
-  # https://processing.org/ 4 beta
+rec {
+  wallpaper-engine-kde-plugin = pkgs.libsForQt5.callPackage ./we-kde {};
   processing4 = pkgs.callPackage ./processing4 {};
-  # can run .NET CLI tools
-  fhs-run     = pkgs.callPackage ./fhs-run {};
+  fetchcord   = pkgs.callPackage ./fetchcord {};
+  
+  # aliases
+  we-kde = wallpaper-engine-kde-plugin;
 }
