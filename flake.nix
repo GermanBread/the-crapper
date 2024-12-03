@@ -2,7 +2,7 @@
   description = "A collection of Nix derivations";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
   };
 
   outputs = { self, nixpkgs }: let
@@ -11,6 +11,6 @@
       inherit system;
     };
   in {
-    legacyPackages.${system} = pkgs.callPackage ./default.nix { };
+    packages.${system} = pkgs.callPackage ./default.nix { };
   };
 }
