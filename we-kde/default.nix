@@ -8,18 +8,25 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "catsout";
     repo = "wallpaper-engine-kde-plugin";
-    rev = "17ed549eee251043fc3962564daf5fce29fea952";
-    sha256 = "a0iwxu/V6vNWftfjQE/mY0wO0lEtVIkQVNZypUT/fdI=";
+    rev = "8f167c34ac82b00eb542a6597c60ec13d03b69ce";
+    sha256 = "sha256-hIrZTeijTJGcbQaykAfOlb12I4m3BPTDmCKxWaz2q0Q=";
+    fetchSubmodules = true;
   };
 
   nativeBuildInputs = with pkgs; [
-    cmake extra-cmake-modules gnumake mesa
-
-    mesa.libdrm mesa.osmesa lz4.dev glew libGLU
-    freeglut glew libGL libGLU mesa mesa.osmesa wayland
+    cmake extra-cmake-modules
+    
+    glslang shaderc
+    libass fribidi
+    # mpv deps
+    alsa-lib libarchive libbluray libbs2b libcaca lcms2 libdvdnav libjack2 mujs libpng openalSoft libpulseaudio pipewire rubberband SDL2 libsixel speex swift libtheora libva vapoursynth libvdpau zimg
+    lz4.dev libGL libGLU vulkan-headers vulkan-loader
+    freeglut wayland
     wayland-protocols
-  ];
-  buildInputs = with pkgs; [ mpv vulkan-headers ]
+  ] ++ (with pkgs.xorg; [
+    libXScrnSaver libXinerama libXv
+  ]);
+  buildInputs = with pkgs; [ mpv ffmpeg ]
     ++ (with pkgs.xorg; [ libX11 libXext ])
     ++ (with pkgs.plasma5Packages;[ plasma-framework ])
     ++ (with pkgs.libsForQt5;[ qtbase qtdeclarative qtwebsockets qtwebchannel qtx11extras ])
