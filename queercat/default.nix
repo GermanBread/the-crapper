@@ -17,6 +17,6 @@ stdenv.mkDerivation rec {
   '';
   installPhase = ''
     mkdir -p $out/bin
-    install -m 555 queercat $out/bin/queercat
+    install -m 555 queercat $out/bin/queercat 
   '';
 }
