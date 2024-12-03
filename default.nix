@@ -1,11 +1,13 @@
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs ? import <nixpkgs> {} }: let 
+  inherit (pkgs) callPackage;
+in
 
 rec {
-  wallpaper-engine-kde-plugin = pkgs.libsForQt5.callPackage ./we-kde {};
-  waydroid_script = pkgs.callPackage ./waydroid_script {};
-  processing4 = pkgs.callPackage ./processing4 {};
-  fetchcord   = pkgs.callPackage ./fetchcord {};
-  "42" = pkgs.callPackage ./42 {};
+  wallpaper-engine-kde-plugin = callPackage ./we-kde {};
+  waydroid_script = callPackage ./waydroid_script {};
+  processing4 = callPackage ./processing4 {};
+  fetchcord   = callPackage ./fetchcord {};
+  "42" = callPackage ./42 {};
   
   # aliases
   we-kde = wallpaper-engine-kde-plugin;

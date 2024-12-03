@@ -1,6 +1,6 @@
-{ lib, stdenv, fetchurl }:
+{ lib, stdenvNoCC, fetchurl }:
 
-stdenv.mkDerivation {
+stdenvNoCC.mkDerivation {
   name = "42.zip";
   dontUnpack = true;
   src = fetchurl {
