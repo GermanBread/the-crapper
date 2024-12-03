@@ -29,8 +29,8 @@ let
 
   fhsenv = (pkgs.buildFHSUserEnv {
     name = "fhs-chroot";
-    targetPkgs = pkgs: (fhspkgs);
-    multiPkgs  = pkgs: (fhspkgs);
+    targetPkgs = pkgs: fhspkgs;
+    multiPkgs  = pkgs: fhspkgs;
   });
 
   processing = builtins.fetchTarball {

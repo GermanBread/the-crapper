@@ -1,8 +1,7 @@
-
-{ pkgs, lib, stdenv, fetchFromGitHub }:
+{ pkgs, lib, stdenv, fetchFromGitHub, qt5 }:
 
 stdenv.mkDerivation rec {
-  pname = "wallpaper-engine-kde-plugin";
+  name = "wallpaper-engine-kde-plugin";
   version = "0.5.4";
 
   src = fetchFromGitHub {
@@ -25,14 +24,16 @@ stdenv.mkDerivation rec {
     wayland-protocols
   ] ++ (with pkgs.xorg; [
     libXScrnSaver libXinerama libXv
-  ]);
+  ]) ++ [
+    qt5.wrapQtAppsHook
+  ];
   buildInputs = with pkgs; [ mpv ffmpeg ]
     ++ (with pkgs.xorg; [ libX11 libXext ])
-    ++ (with pkgs.plasma5Packages;[ plasma-framework ])
-    ++ (with pkgs.libsForQt5;[ qtbase qtdeclarative qtwebsockets qtwebchannel qtx11extras ])
+    ++ (with pkgs.plasma5Packages; [ plasma-framework ])
+    ++ (with pkgs.libsForQt5; [ qtbase qtdeclarative qtwebsockets qtwebchannel qtx11extras ])
     ++ (with pkgs.python38Packages; [ websockets ]);
 
-  dontWrapQtApps = true;
+  # dontWrapQtApps = true;
 
   meta = with lib; {
     description = "Wallpaper Engine KDE plasma plugin";
