@@ -2,8 +2,10 @@
 , fetchFromGitHub
 
 , cmake
+, ninja
 , gettext
 , wrapGAppsHook
+, wrapQtAppsHook
 , pkg-config
 
 , glib
@@ -20,8 +22,11 @@
 # plugins
 , withLua ? true, lua
 
-# fixes crash
+# fixes crashes and theme issues
 , gnome
+, breeze-qt5
+, breeze-gtk
+, withPortal ? true, xdg-desktop-portal, xdg-desktop-portal-kde, xdg-desktop-portal-wlr, xdg-desktop-portal-gnome, xdg-desktop-portal-gtk
 }:
 
 stdenv.mkDerivation rec {
@@ -35,7 +40,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-AzLkXGcTjtfBaPOZ/Tc+TwL63vm08G2tZw3pGzoo7po=";
   };
 
-  nativeBuildInputs = [ cmake gettext pkg-config wrapGAppsHook ];
+  nativeBuildInputs = [ cmake ninja gettext pkg-config wrapGAppsHook wrapQtAppsHook ];
   buildInputs =
     [ glib
       gsettings-desktop-schemas
@@ -48,10 +53,16 @@ stdenv.mkDerivation rec {
       poppler
       portaudio
       zlib
+      
       gnome.adwaita-icon-theme
+      breeze-gtk breeze-qt5
     ]
-    ++ lib.optional withLua lua;
+    ++ lib.optional withLua [ lua ]
+    ++ lib.optional withPortal [
+      xdg-desktop-portal xdg-desktop-portal-kde xdg-desktop-portal-wlr xdg-desktop-portal-gnome xdg-desktop-portal-gtk
+    ];
 
+  
   buildFlags = "translations";
 
   hardeningDisable = [ "format" ];
