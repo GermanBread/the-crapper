@@ -8,7 +8,6 @@ let
     icu
     krb5
     ncurses
-    appimage-run # Might not work?
   ] ++ extraPkgs pkgs;
 
   fhsenv = (pkgs.buildFHSUserEnv {
