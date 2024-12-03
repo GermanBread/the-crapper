@@ -2,13 +2,9 @@
   inherit (pkgs) callPackage;
 in
 
-rec {
-  wallpaper-engine-kde-plugin = callPackage ./we-kde {};
+{
   waydroid_script = callPackage ./waydroid_script {};
-  processing4 = callPackage ./processing4 {};
-  fetchcord   = callPackage ./fetchcord {};
+  fetchcord  = callPackage ./fetchcord {};
+  queercat = callPackage ./queercat {};
   "42" = callPackage ./42 {};
-  
-  # aliases
-  we-kde = wallpaper-engine-kde-plugin;
 }

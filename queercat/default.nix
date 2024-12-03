@@ -1,4 +1,4 @@
-{ pkgs, lib, stdenv, fetchFromGitHub }:
+{ stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   name = "queercat";
