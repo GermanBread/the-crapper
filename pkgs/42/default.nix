@@ -1,11 +1,11 @@
-{ lib, stdenvNoCC, fetchurl }:
-
-stdenvNoCC.mkDerivation {
+let
+  pkgs = import <nixpkgs> {};
+in pkgs.stdenvNoCC.mkDerivation {
   name = "42.zip";
   dontUnpack = true;
-  src = fetchurl {
+  src = builtins.fetchurl {
     url = "https://github.com/iamtraction/ZOD/raw/master/42.zip";
-    hash = "sha256-u9Bd4ZqirxRVwElGOSFYmKFShtmwUHO2xIF/4kssNvo=";
+    sha256 = "sha256-u9Bd4ZqirxRVwElGOSFYmKFShtmwUHO2xIF/4kssNvo=";
   };
   dontPatch = true;
   dontBuild = true;

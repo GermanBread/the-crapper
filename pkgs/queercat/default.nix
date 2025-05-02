@@ -1,10 +1,10 @@
-{ stdenv, fetchFromGitHub }:
-
-stdenv.mkDerivation rec {
+let
+  pkgs = import <nixpkgs> {};
+in pkgs.stdenv.mkDerivation rec {
   name = "queercat";
   owner = "a-weeb-programmer";
 
-  src = fetchFromGitHub {
+  src = pkgs.fetchFromGitHub {
     inherit owner;
     repo = name;
     rev = "8e8790074e230edca86e4d4d4d962eb27fa0c2a9";

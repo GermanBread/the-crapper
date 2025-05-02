@@ -1,7 +1,21 @@
-# Nix derivations that I hacked together
+A collection of Nix packages and NixOS modules
 
-To build something, run `nix-build ./default.nix -A foo`
+NixOS import:
 
-To install something, run `nix-env -f ./default.nix -i foo`
+```nix
+{
+imports = [ (inputs.stuffs + /nixos/<modulename>) ];
+}
+```
 
-Flakes ARE supported!
+Home-Manager import:
+
+```nix
+{
+imports = [ (inputs.stuffs + /home-manager/<modulename>) ];
+}
+```
+
+Packages:
+
+`nix-env -if pkgs/<name>/default.nix`

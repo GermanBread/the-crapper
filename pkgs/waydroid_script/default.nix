@@ -1,10 +1,9 @@
-{ python3
-, fetchFromGitHub }:
-
-python3.pkgs.buildPythonApplication {
+let
+  pkgs = import <nixpkgs> {};
+in with pkgs.python3.pkgs; buildPythonApplication {
   pname = "waydroid_script";
   version = "0";
-  src = fetchFromGitHub {
+  src = pkgs.fetchFromGitHub {
     repo ="waydroid_script";
     owner = "casualsnek";
     rev = "489159c5f90aabb211ce4e960d7de0378120a11e";
@@ -23,7 +22,7 @@ python3.pkgs.buildPythonApplication {
 
   format = "other";
 
-  propagatedBuildInputs = with python3.pkgs; [
+  propagatedBuildInputs = [
     tqdm
     requests
     inquirer
