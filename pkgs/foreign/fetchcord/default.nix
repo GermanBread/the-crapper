@@ -1,6 +1,10 @@
-let
-  pkgs = import <nixpkgs> {};
-in with pkgs.python3.pkgs; buildPythonApplication {
+{
+  pkgs,
+  ...
+}:
+
+with pkgs.python3.pkgs;
+buildPythonApplication {
   pname = "fetchcord";
   version = "2.7.7";
   src = builtins.fetchTarball {
@@ -9,6 +13,8 @@ in with pkgs.python3.pkgs; buildPythonApplication {
   };
   doCheck = false;
   propagatedBuildInputs = [
-    psutil pypresence importlib-resources
+    psutil
+    pypresence
+    importlib-resources
   ];
 }

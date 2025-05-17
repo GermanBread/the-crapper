@@ -1,6 +1,5 @@
-let
-  pkgs = import <nixpkgs> {};
-in pkgs.stdenvNoCC.mkDerivation {
+{ pkgs, ... }:
+pkgs.stdenvNoCC.mkDerivation {
   name = "42.zip";
   dontUnpack = true;
   src = builtins.fetchurl {

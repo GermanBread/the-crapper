@@ -4,7 +4,7 @@ NixOS import:
 
 ```nix
 {
-imports = [ (inputs.stuffs + /nixos/<modulename>) ];
+  imports = [ (inputs.stuffs + /nixos/<modulename>) ];
 }
 ```
 
@@ -12,10 +12,12 @@ Home-Manager import:
 
 ```nix
 {
-imports = [ (inputs.stuffs + /home-manager/<modulename>) ];
+  imports = [ (inputs.stuffs + /home-manager/<modulename>) ];
 }
 ```
 
 Packages:
 
-`nix-env -if pkgs/<name>/default.nix`
+ - `nix-env -if pkgs -A <name>`
+ - `nix-build pkgs -A <name>`
+ - `import ./pkgs { [ARGS] ... }`
