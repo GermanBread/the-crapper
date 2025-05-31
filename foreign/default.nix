@@ -3,4 +3,5 @@ args: {
   queercat = import ./queercat args;
   fetchcord = import ./fetchcord args;
   waydroid_script = import ./waydroid_script args;
+  kwin4_effect_geometry_change = import ./kwin4_effect_geometry_change args;
 }
