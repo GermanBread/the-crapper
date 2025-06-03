@@ -39,18 +39,6 @@ let
 in
 {
   clean-old-gens = basicScript "clean-old-gens";
-  direnv-init =
-    runCommandNoCC "direnv-init"
-      {
-        nativeBuildInputs = [ makeWrapper ];
-      }
-      ''
-        mkdir -p $out/bin $out/share
-        install -m755 ${./bin/direnv-init.bash} $out/bin/direnv-init
-        install -m644 ${./share/direnv-template.tar} $out/share/direnv-template.tar
-        patchShebangs $out/bin/direnv-init
-        wrapProgram $out/bin/direnv-init --prefix PATH : "${makeBinPath [ gnutar ]}"
-      '';
   gen-machine-id = pathScript "gen-machine-id" [ util-linux ];
   nixpkgs-grep =
     runCommandNoCC "nixpkgs-grep"
