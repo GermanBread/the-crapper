@@ -22,6 +22,8 @@ spinner() {
 # shellcheck disable=SC2086
 [ "$(id -u)" -ne 0 ] && exec sudo "$0" "$@"
 
+echo -ne "\033[0m\033[?7l"
+
 echo "running garbage collection..."
 
 usersList=($(getent shadow | awk -F':' '$2 != "!" {print$1}' | uniq))
@@ -41,3 +43,5 @@ echo "running garbage collection again..."
 spinner nix-collect-garbage
 
 echo "done"
+
+echo -ne "\033[0m\033[?7h"
