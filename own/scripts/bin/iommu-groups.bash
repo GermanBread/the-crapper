@@ -78,24 +78,19 @@ for i in "${!iommu_groups[@]}"; do
         dev_data[driver]="${DRIVER}"
         
         [ -e /sys/kernel/iommu_groups/"${group_num}"/devices/"${device_id}"/reset ] && \
-            echo -ne "\033[32mR\033[37m" # device can be reset
+            echo -ne "\033[32mReset\033[37m" # device can be reset
+        [ -e /sys/kernel/iommu_groups/"${group_num}"/devices/"${device_id}"/reset ] && [[ ${#children[@]} -eq 0 ]] && echo -n ' '
         [[ ${#children[@]} -eq 0 ]] && \
-            echo -ne "\033[34mE\033[37m" # device is an endpoint (libvirt will complain if you try to pass a device that isn't one)
+            echo -ne "\033[34mEndpoint\033[37m" # device is an endpoint (libvirt will complain if you try to pass a device that isn't one)
         echo -ne $'\t'
-        echo -ne "\033[38;5;154m${dev_data[slot]:0:4}"
-        echo -ne "\033[37m:"
-        echo -ne "\033[38;5;155m${dev_data[slot]:5:2}"
-        echo -ne "\033[37m:"
-        echo -ne "\033[38;5;156m${dev_data[slot]:8:2}"
-        echo -ne "\033[37m."
-        echo -ne "\033[38;5;157m${dev_data[slot]:11:1}"
-        echo -ne '\t'
-        echo -ne "\033[37m["
-        echo -ne "\033[38;5;193m${dev_data[pci_id]:0:4}"
-        echo -ne "\033[37m:"
-        echo -ne "\033[38;5;194m${dev_data[pci_id]:5:4}"
-        echo -ne "\033[37m]"
-        echo -ne '\t'
+        printf '%b\033[37m:%b\033[37m:%b\033[37m.%b\033[37m\t' \
+            "\033[38;5;154m${dev_data[slot]:0:4}" \
+            "\033[38;5;155m${dev_data[slot]:5:2}" \
+            "\033[38;5;156m${dev_data[slot]:8:2}" \
+            "\033[38;5;157m${dev_data[slot]:11:1}"
+        printf '\033[37m[%b:%b\033[37m]\t' \
+            "\033[38;5;193m${dev_data[pci_id]:0:4}" \
+            "\033[38;5;194m${dev_data[pci_id]:5:4}"
         printf '%b%s\t' "\033[38;5;220m" "${dev_data[class]/ \[*\]}"
         printf '%b%s\t' "\033[38;5;147m" "${dev_data[vendor]/ \[*\]}"
         printf '%b%s\t' "\033[38;5;199m" "${dev_data[driver]:-}"
