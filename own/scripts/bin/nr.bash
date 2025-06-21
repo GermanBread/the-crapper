@@ -51,7 +51,8 @@ exec nix repl --expr '
                     commoncfg.hm
                 ] ++ (flatten [ modHm ]); }
             ];
-        homeConfig = hosts."'"$host"'".config.home-manager.users."'"$USER"'";
+        hmUsers = hosts."'"$host"'".config.home-manager.users;
+        hmConfig = hmUsers."'"$USER"'";
     in '"trace ''
         Loaded expressions from $root:
 
@@ -66,7 +67,7 @@ exec nix repl --expr '
             pkgsCross  -  pkgs with cross compile
 
         user($USER) variables in scope:
-            homeConfig
+            hmConfig
 
         host($host) variables in scope:
             config
@@ -74,12 +75,15 @@ exec nix repl --expr '
             _module
             extendModules
 
+        host($host) home-manager variables in scope:
+            hmUsers
+
         utilities (with variables from $host):
             evalNixOS
             evalHomeManager
             evalNixOSWithHM
     ''"' {
-        inherit hosts homeConfig;
+        inherit hosts hmConfig hmUsers;
         inherit (vars) pkgs lib inputs flakes;
         inherit (hosts."'"$host"'") config options _module extendModules;
         inherit pkgsCross evalNixOS evalHomeManager evalNixOSWithHM;
