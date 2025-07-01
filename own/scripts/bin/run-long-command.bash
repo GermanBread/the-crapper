@@ -18,4 +18,8 @@ spinner() {
     rm -f "$log"
 }
 
+echo -ne "\033[0m\033[?7l"
+
 spinner "$@"
+
+echo -ne "\033[0m\033[?7h"
