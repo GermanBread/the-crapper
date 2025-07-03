@@ -1,7 +1,9 @@
 { runCommandNoCC
 , makeWrapper
 , types
-, lib }:
+, lib
+, root
+}:
 let
   inherit (types)
     submodule
@@ -27,7 +29,7 @@ let
         options = {
           src = mkOption {
             type = path;
-            default = ../../own/scripts/bin/${name}.bash;
+            default = root + /${name}.bash;
           };
           aliases = mkOption {
             type = listOf str;

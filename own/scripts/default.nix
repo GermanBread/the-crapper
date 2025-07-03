@@ -4,6 +4,7 @@ let
     inherit (pkgs) runCommandNoCC makeWrapper;
     inherit (lib) types;
     inherit lib;
+    root = ./bin;
   };
   
   inherit (pkgs)
@@ -15,28 +16,23 @@ let
     ;
 in scriptsModule.evalDefs {
   scripts = {
+    gen-machine-id.paths = [ util-linux ];
+    usb-controllers.paths = [ usbutils ];
+    fix-plasma-icons.paths = [ gnused ];
+    iommu-groups.paths = [ findutils ];
     run-long-command = {};
     clean-old-gens = {};
-    gen-machine-id = { paths = [ util-linux ]; };
+    sandbox-shell = {};
+    fhs-shell = {};
+    publicip = {};
+    nr = {};
+
     nixpkgs-grep = {
       substitutions = {
         "nixpkgs" = "${pkgs.path}";
       };
       aliases = [ "ng" ];
       paths = [ gnugrep ];
-    };
-    nr = {};
-    publicip = {};
-    fhs-shell = {};
-    sandbox-shell = {};
-    iommu-groups = {
-      paths = [ findutils ];
-    };
-    usb-controllers = {
-      paths = [ usbutils ];
-    };
-    fix-plasma-icons = {
-      paths = [ gnused ];
     };
   };
 }
