@@ -27,7 +27,7 @@ echo -ne "\033[0m\033[?7l"
 echo "running garbage collection..."
 
 usersList=($(getent shadow | awk -F':' '$2 != "!" {print$1}' | uniq))
-echo "... on users ${usersList[@]}"
+echo "... on users ( ${usersList[@]} )"
 
 # shellcheck disable=SC2043
 for i in "${usersList[@]}"; do
