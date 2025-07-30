@@ -15,8 +15,12 @@ spinner() {
         sleep .1s
     done
     wait "$proc"
+    if [ $? -gt 0 ]; then
+        echo -e "\rerrored [$@]\033[0K"
+    else
+        echo -e "\rcompleted [$@]\033[0K"
+    fi
     rm -f "$log"
-    echo -e "\rcompleted [$@]\033[0K"
 }
 
 # shellcheck disable=SC2086
@@ -24,22 +28,21 @@ spinner() {
 
 echo -ne "\033[0m\033[?7l"
 
+IFS=$'\n' read -r -d '' -a usersList < <(getent shadow | awk -F':' '$2 != "!" {print$1}' | uniq)
+if [ -n "${usersList[*]}" ]; then
+    echo "running garbage collection for users ( ${usersList[@]} )..."
+    for i in "${usersList[@]}"; do
+        spinner sudo -u "$i" nix-collect-garbage -d
+    done
+fi
+
 echo "running garbage collection..."
-
-usersList=($(getent shadow | awk -F':' '$2 != "!" {print$1}' | uniq))
-echo "... on users ( ${usersList[@]} )"
-
-# shellcheck disable=SC2043
-for i in "${usersList[@]}"; do
-  spinner sudo -u "$i" nix-collect-garbage -d
-done
 spinner nix-collect-garbage -d
 
 echo "nuking boot entries..."
-spinner /run/current-system/bin/switch-to-configuration boot
+spinner /nix/var/nix/profiles/system/bin/switch-to-configuration boot
 
 echo "running garbage collection again..."
-
 spinner nix-collect-garbage
 
 echo "done"
