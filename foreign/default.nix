@@ -1,6 +1,7 @@
 args: {
   "42" = import ./42 args;
   kurve = import ./kurve args;
+  fmlock = import ./fmlock args;
   queercat = import ./queercat args;
   fetchcord = import ./fetchcord args;
   waydroid_script = import ./waydroid_script args;
