@@ -1,7 +1,17 @@
 #!/usr/bin/env bash
 
-if [ $# -eq 0 ]; then
-  echo "no arguments given (regex supported)"
+path=
+if [ $# -le 1 ]; then
+cat <<-EOF
+not enough arguments given
+
+  nixpkpgs subpath
+  query/args...
+
+regex supported
+EOF
   exit 1
 fi
-cd "@nixpkgs@" || exit 1; grep -ER "$@" .
+path="$1"
+shift
+grep -ER "$@" "@nixpkgs@/${path#/}" | sed 's,^@nixpkgs@/,/etc/nixpkgs/,gm'
