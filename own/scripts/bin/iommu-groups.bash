@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # enable glob, error on unset variable, exit on error, pipe exit
-set +f -ueo pipefail
+set +f -eu
 # match nothing instead of being treated as string
 shopt -s nullglob
 shopt -s extglob
@@ -33,10 +33,9 @@ for i in "${!iommu_groups[@]}"; do
         fi
         device_id="${group_devices[j]}"
         declare -A dev_data=()
-        declare -a pci_data_raw=()
-        eval "pci_data_raw=($(lspci -Dnnmms "${device_id}"))"
+        eval 'declare -a pci_data_raw=('"$(lspci -Dnnmms "${device_id}")"')'
         DRIVER= PCI_ID= PCI_SLOT_NAME=
-        source /sys/kernel/iommu_groups/"${group_num}"/devices/"${device_id}"/uevent
+        source <(grep -E '^[A-Z_]+=' /sys/kernel/iommu_groups/"${group_num}"/devices/"${device_id}"/uevent)
         {
             cd /sys/kernel/iommu_groups/"${group_num}"/devices/"${device_id}"
             children=(+([0-9a-f]):+([0-9a-f]):+([0-9a-f]).+([0-9a-f])/)
