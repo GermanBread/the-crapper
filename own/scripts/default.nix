@@ -8,8 +8,10 @@ let
   };
   
   inherit (pkgs)
+    joystickwake
     util-linux
     findutils
+    swayidle
     usbutils
     gnugrep
     gnused
@@ -18,6 +20,7 @@ in scriptsModule.evalDefs {
   scripts = {
     gen-machine-id.paths = [ util-linux ];
     usb-controllers.paths = [ usbutils ];
+    zzz.paths = [ joystickwake swayidle ];
     fix-plasma-icons.paths = [ gnused ];
     iommu-groups.paths = [ findutils ];
     run-long-command = {};
