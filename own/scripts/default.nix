@@ -24,6 +24,7 @@ in scriptsModule.evalDefs {
     fix-plasma-icons.paths = [ gnused ];
     iommu-groups.paths = [ findutils ];
     run-long-command = {};
+    latest-nix-shell = {};
     clean-old-gens = {};
     sandbox-shell = {};
     fhs-shell = {};
