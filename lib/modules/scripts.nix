@@ -1,8 +1,8 @@
-{ runCommandNoCC
-, makeWrapper
+{ makeWrapper
+, runCommand
 , types
-, lib
 , root
+, lib
 }:
 let
   inherit (types)
@@ -48,7 +48,7 @@ let
         };
       }) [ submodule attrsOf ];
       apply = mapAttrs (name: { src, paths, aliases, substitutions }:
-        runCommandNoCC "${name}-script"
+        runCommand "${name}-script"
           { nativeBuildInputs = [ makeWrapper ]; }
           ''
             mkdir -p "$out"/bin

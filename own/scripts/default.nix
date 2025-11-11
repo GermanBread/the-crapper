@@ -1,7 +1,7 @@
 { pkgs, lib, ... }:
 let
   scriptsModule = import ../../lib/modules/scripts.nix {
-    inherit (pkgs) runCommandNoCC makeWrapper;
+    inherit (pkgs) runCommand makeWrapper;
     inherit (lib) types;
     inherit lib;
     root = ./bin;
