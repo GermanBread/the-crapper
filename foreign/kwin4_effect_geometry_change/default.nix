@@ -9,8 +9,8 @@ pkgs.stdenvNoCC.mkDerivation {
   src = pkgs.fetchFromGitHub {
     repo = "kwin4_effect_geometry_change";
     owner = "peterfajdiga";
-    rev = "a7a490c43c877e5e58d45d6c0561a79140c8eca5";
-    hash = "sha256-p4FpqagR8Dxi+r9A8W5rGM5ybaBXP0gRKAuzigZ1lyA=";
+    rev = "25d92f1fc19c547a9b7b04c3db3cfa150bf3531b";
+    hash = "sha256-pa3lHSZ2FtxCh9hyE+3PyV/q/moe15cE3wO0aQEH2vA=";
   };
 
   dontBuild = true;
