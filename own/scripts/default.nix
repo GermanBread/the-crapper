@@ -26,7 +26,6 @@ in scriptsModule.evalDefs {
     run-long-command = {};
     latest-nix-shell = {};
     clean-old-gens = {};
-    sandbox-shell = {};
     fhs-shell = {};
     publicip = {};
     nr = {};
