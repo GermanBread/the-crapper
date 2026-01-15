@@ -1,3 +1,3 @@
-args: {
-  kwin4_effect_geometry_change = import ./kwin4_effect_geometry_change args;
+{ callPackage }: {
+  kwin4_effect_geometry_change = callPackage ./kwin4_effect_geometry_change {};
 }

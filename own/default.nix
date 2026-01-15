@@ -1,4 +1,4 @@
-args: {
-  writeJavaScript = import ./writeJavaScript args;
-  scripts = import ./scripts args;
+{ callPackage }: {
+  writeJavaScript = callPackage ./writeJavaScript {};
+  scripts = callPackage ./scripts {};
 }

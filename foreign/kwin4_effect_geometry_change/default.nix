@@ -1,12 +1,12 @@
-{
-  pkgs,
-  ...
+{ fetchFromGitHub
+, stdenvNoCC
+, gnumake
 }:
 
-pkgs.stdenvNoCC.mkDerivation {
+stdenvNoCC.mkDerivation {
   pname = "kwin4_effect_geometry_change";
   version = "v1.5";
-  src = pkgs.fetchFromGitHub {
+  src = fetchFromGitHub {
     repo = "kwin4_effect_geometry_change";
     owner = "peterfajdiga";
     rev = "25d92f1fc19c547a9b7b04c3db3cfa150bf3531b";
@@ -22,7 +22,7 @@ pkgs.stdenvNoCC.mkDerivation {
 
   format = "other";
 
-  nativeBuildInputs = with pkgs; [
+  nativeBuildInputs = [
     gnumake
   ];
 }

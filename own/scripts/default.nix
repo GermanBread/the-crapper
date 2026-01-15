@@ -1,21 +1,22 @@
-{ pkgs, lib, ... }:
+{ joystickwake
+, makeWrapper
+, runCommand
+, util-linux
+, findutils
+, swayidle
+, usbutils
+, gnugrep
+, gnused
+, pkgs # for pkgs.path
+, lib
+}:
 let
   scriptsModule = import ../../lib/modules/scripts.nix {
-    inherit (pkgs) runCommand makeWrapper;
+    inherit runCommand makeWrapper;
     inherit (lib) types;
     inherit lib;
     root = ./bin;
   };
-  
-  inherit (pkgs)
-    joystickwake
-    util-linux
-    findutils
-    swayidle
-    usbutils
-    gnugrep
-    gnused
-    ;
 in scriptsModule.evalDefs {
   scripts = {
     gen-machine-id.paths = [ util-linux ];
