@@ -1,0 +1,32 @@
+[huion osd]
+Description=huion osd
+layer=osd
+layerrule=2
+skippager=true
+skippagerrule=2
+skipswitcher=true
+skipswitcherrule=2
+skiptaskbar=true
+skiptaskbarrule=2
+title=huiontablet
+types=256
+wmclass=huiontablet huiontablet
+wmclasscomplete=true
+wmclassmatch=1
+
+[huiontablet begone]
+Description=huiontablet begone
+clientmachine=localhost
+screenrule=3
+skippager=true
+skippagerrule=2
+skipswitcher=true
+skipswitcherrule=2
+skiptaskbar=true
+skiptaskbarrule=2
+title=Huion Tablet
+titlematch=1
+types=1
+wmclass=huiontablet huiontablet
+wmclasscomplete=true
+wmclassmatch=1
