@@ -7,7 +7,6 @@
 , usbutils
 , gnugrep
 , gnused
-, pkgs # for pkgs.path
 , lib
 }:
 let
@@ -32,9 +31,6 @@ in scriptsModule.evalDefs {
     nr = {};
 
     nixpkgs-grep = {
-      substitutions = {
-        "nixpkgs" = "${pkgs.path}";
-      };
       aliases = [ "ng" ];
       paths = [ gnugrep ];
     };

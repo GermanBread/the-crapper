@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+pkgs="$(nix-instantiate --eval --expr '<nixpkgs>')"
 path=
 if [ $# -le 1 ]; then
 cat <<-EOF
@@ -14,4 +15,4 @@ EOF
 fi
 path="$1"
 shift
-grep -ER "$@" "@nixpkgs@/${path#/}" | sed 's,^@nixpkgs@/,/etc/nixpkgs/,gm'
+grep -ER "$@" "$pkgs/${path#/}" | sed "s,^$pkgs/,/etc/nixpkgs/,gm"
