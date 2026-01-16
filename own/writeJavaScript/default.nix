@@ -1,9 +1,10 @@
-{
-  pkgs,
-  ...
+{ writeShellScript
+, nodejs_latest
+, writeText
+, lib
 }:
 
 name: text:
-pkgs.writeShellScript name ''
-  ${pkgs.lib.getExe pkgs.nodejs_latest} ${pkgs.writeText "${name}-text" text}
+writeShellScript name ''
+  ${lib.getExe nodejs_latest} ${writeText "${name}-text" text}
 ''
