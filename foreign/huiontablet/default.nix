@@ -9,12 +9,12 @@
 # Tested with Huion Kamvas 13 (Gen 3)
 # Status: launches, settings can be changed but they don't persist, stylus is picked up, tilt probably works
 # Problems: many, too many
-# Solutions: https://github.com/containers/bubblewrap/pull/547
+# Solutions: https://github.com/containers/bubblewrap/pull/547 ?
 
 # I know this driver works in general, I tested it on Arch Linux.
 # I had to boot into Plasma's X11 session and after going back to Wayland I could map the tablet area on Wayland.
 # Unless Krita's being weird, the default wheel bindings don't work-ish (only enlarge brush does something and it zooms in the canvas)
-# I highly suggest creating your own KWin rules to hide the main window and also force the OSD into the OSD layer (so that it doesn't get hidden in fullscreen windows)
+# I highly suggest importing the kwin rules from the repo's toplevel `/files` directory
 
 { autoPatchelfHook
 , stdenvNoCC
