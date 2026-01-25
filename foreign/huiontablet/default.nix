@@ -64,22 +64,26 @@ stdenvNoCC.mkDerivation rec {
 
     mkdir -p $out/{etc/xdg,share,lib/udev}
 
-    cp -a $src/huion/icon $out/share/icons
+    cp -r $src/huion/icon $out/share/icons
 
-    cp -a $src/huion/xdg/autostart $out/share/applications
+    cp -r $src/huion/xdg/autostart $out/share/applications
     # both files are identical
     # this probably isn't an effective space-saving measure
     # but I like it this way
     ln -s $out/share/applications $out/etc/xdg/autostart
 
-    cp -a $src/huion/huiontablet $out/lib/huiontablet
-    cp -a $src/huion/huiontablet/res/rule $out/lib/udev/rules.d
+    cp -r $src/huion/huiontablet $out/lib/huiontablet
+    cp -r $src/huion/huiontablet/res/rule $out/lib/udev/rules.d
 
     substituteInPlace $out/share/applications/huiontablet.desktop \
       --replace-fail /usr $out
 
     addAutoPatchelfSearchPath $out/lib/huiontablet/libs
     addAutoPatchelfSearchPath $out/lib/huiontablet/xdotool
+
+    # breaks `w`, needed for tty detection...
+    chmod 777 $out/lib/huiontablet/libs
+    rm $out/lib/huiontablet/libs/libsystemd.so.0
 
     runHook postInstall
   '';
