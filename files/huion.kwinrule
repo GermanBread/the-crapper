@@ -1,7 +1,11 @@
 [huion osd]
 Description=huion osd
+desktops=\\0
+desktopsrule=2
 layer=osd
 layerrule=2
+opacityactiverule=2
+opacityinactiverule=2
 skippager=true
 skippagerrule=2
 skipswitcher=true
@@ -17,9 +21,14 @@ wmclassmatch=1
 [huiontablet begone]
 Description=huiontablet begone
 clientmachine=localhost
-screenrule=3
-skippager=true
-skippagerrule=2
+desktops=\\0
+desktopsrule=2
+ignoregeometry=true
+ignoregeometryrule=2
+placementrule=2
+position=0,0
+positionrule=4
+screenrule=4
 skipswitcher=true
 skipswitcherrule=2
 skiptaskbar=true
