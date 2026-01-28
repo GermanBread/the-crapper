@@ -32,59 +32,59 @@
 , libX11
 , libgcc
 , libGL
-}:
+}: let
+  driverPkg = stdenvNoCC.mkDerivation rec {
+    pname = "HuionTablet";
+    version = "v15.0.0.175";
+    src = fetchzip {
+      url = "https://driverdl.huion.com/driver/Linux/${pname}_LinuxDriver_${version}.${stdenvNoCC.hostPlatform.uname.processor}.tar.xz";
+      hash = "sha256-VARRHkTncfzdzIMSeBF/RUkcP6mI0qf0JBLy9WkWKbI=";
+      stripRoot = false;
+    };
+    buildInputs = [
+      fontconfig.lib
+      libgpg-error
+      libxinerama
+      libgcc.lib
+      e2fsprogs
+      libxrandr
+      freetype
+      libxtst
+      libusb1
+      libX11
+      libGL
+    ];
+    nativeBuildInputs = [
+      libsForQt5.wrapQtAppsHook
+      autoPatchelfHook
+    ];
+    installPhase = ''
+      runHook preInstall
 
-stdenvNoCC.mkDerivation rec {
-  pname = "HuionTablet";
-  version = "v15.0.0.175";
-  src = fetchzip {
-    url = "https://driverdl.huion.com/driver/Linux/${pname}_LinuxDriver_${version}.${stdenvNoCC.hostPlatform.uname.processor}.tar.xz";
-    hash = "sha256-VARRHkTncfzdzIMSeBF/RUkcP6mI0qf0JBLy9WkWKbI=";
-    stripRoot = false;
+      mkdir -p $out/{etc/xdg,share,lib/udev}
+
+      cp -r $src/huion/icon $out/share/icons
+
+      cp -r $src/huion/xdg/autostart $out/share/applications
+      # both files are identical
+      # this probably isn't an effective space-saving measure
+      # but I like it this way
+      ln -s $out/share/applications $out/etc/xdg/autostart
+
+      cp -r $src/huion/huiontablet $out/lib/huiontablet
+      cp -r $src/huion/huiontablet/res/rule $out/lib/udev/rules.d
+
+      substituteInPlace $out/share/applications/huiontablet.desktop \
+        --replace-fail /usr $out
+
+      addAutoPatchelfSearchPath $out/lib/huiontablet/libs
+      addAutoPatchelfSearchPath $out/lib/huiontablet/xdotool
+
+      # breaks `w`, needed for tty detection...
+      chmod 777 $out/lib/huiontablet/libs
+      rm $out/lib/huiontablet/libs/libsystemd.so.0
+
+      runHook postInstall
+    '';
   };
-  buildInputs = [
-    fontconfig.lib
-    libgpg-error
-    libxinerama
-    libgcc.lib
-    e2fsprogs
-    libxrandr
-    freetype
-    libxtst
-    libusb1
-    libX11
-    libGL
-  ];
-  nativeBuildInputs = [
-    libsForQt5.wrapQtAppsHook
-    autoPatchelfHook
-  ];
-  installPhase = ''
-    runHook preInstall
-
-    mkdir -p $out/{etc/xdg,share,lib/udev}
-
-    cp -r $src/huion/icon $out/share/icons
-
-    cp -r $src/huion/xdg/autostart $out/share/applications
-    # both files are identical
-    # this probably isn't an effective space-saving measure
-    # but I like it this way
-    ln -s $out/share/applications $out/etc/xdg/autostart
-
-    cp -r $src/huion/huiontablet $out/lib/huiontablet
-    cp -r $src/huion/huiontablet/res/rule $out/lib/udev/rules.d
-
-    substituteInPlace $out/share/applications/huiontablet.desktop \
-      --replace-fail /usr $out
-
-    addAutoPatchelfSearchPath $out/lib/huiontablet/libs
-    addAutoPatchelfSearchPath $out/lib/huiontablet/xdotool
-
-    # breaks `w`, needed for tty detection...
-    chmod 777 $out/lib/huiontablet/libs
-    rm $out/lib/huiontablet/libs/libsystemd.so.0
-
-    runHook postInstall
-  '';
-}
+in driverPkg
