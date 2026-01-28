@@ -11,6 +11,7 @@
 
 basedir="$(realpath "${0%/*}")"
 cd "$basedir"
+echo "$basedir"
 
 for tgt in {libs,plugins,qml,xdotool,doc,LGPL,log.conf}; do
     rm -rf "$tgt"
@@ -28,11 +29,13 @@ done
 wait
 
 # scaling factor is "close enough", only works on 100% scaling for ALL screens
-ffmpeg -y -i <(spectacle -n -i -f -b -o /dev/stdout) -vf scale="iw*1/4":-1 res/screen.png &
+ffmpeg -loglevel error -y -i <(spectacle -n -i -f -b -o /dev/stdout) -vf scale="iw*1/4":-1 res/screen.png &
 
 kwriteconfig6 --file kcminputrc \
     --group Libinput --group 9580 --group 61165 --group 'HUION 256C PEN STYLUS' \
-    --key MapToWorkspace --type bool true &
+    --key MapToWorkspace --type bool true --notify &
+
+wait
 
 chmod -R 700 "$basedir"
 
