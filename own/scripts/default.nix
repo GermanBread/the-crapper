@@ -18,9 +18,9 @@ let
   };
 in scriptsModule.evalDefs {
   scripts = {
+    zenless-zone-zero.paths = [ joystickwake swayidle ];
     gen-machine-id.paths = [ util-linux ];
     usb-controllers.paths = [ usbutils ];
-    zzz.paths = [ joystickwake swayidle ];
     fix-plasma-icons.paths = [ gnused ];
     iommu-groups.paths = [ findutils ];
     run-long-command = {};
