@@ -20,6 +20,15 @@
 , stdenvNoCC
 , fetchzip
 
+# wrapper script deps
+, runCommandNoCC
+, kdePackages
+, xmodmap
+, ffmpeg
+, xprop
+, lib
+
+, addDriverRunpath
 , libgpg-error
 , libxinerama
 , libsForQt5
@@ -33,6 +42,12 @@
 , libgcc
 , libGL
 }: let
+  inherit (kdePackages)
+    kconfig
+    ;
+  inherit (lib)
+    makeBinPath
+    ;
   driverPkg = stdenvNoCC.mkDerivation rec {
     pname = "HuionTablet";
     version = "v15.0.0.175";
@@ -42,6 +57,7 @@
       stripRoot = false;
     };
     buildInputs = [
+      addDriverRunpath
       fontconfig.lib
       libgpg-error
       libxinerama
@@ -61,7 +77,7 @@
     installPhase = ''
       runHook preInstall
 
-      mkdir -p $out/{etc/xdg,share,lib/udev}
+      mkdir -p $out/{bin,etc/xdg,share,lib/udev}
 
       cp -r $src/huion/icon $out/share/icons
 
@@ -83,6 +99,13 @@
       # breaks `w`, needed for tty detection...
       chmod 777 $out/lib/huiontablet/libs
       rm $out/lib/huiontablet/libs/libsystemd.so.0
+
+      chmod 755 $out/lib/huiontablet
+      substitute ${./huiontablet.sh} $out/lib/huiontablet/huiontablet.sh \
+        --subst-var-by src $out \
+        --subst-var-by extras ${makeBinPath [ ffmpeg kconfig xmodmap xprop ]}
+      chmod 755 $out/lib/huiontablet/huiontablet.sh
+      ln -s $out/lib/huiontablet/huiontablet.sh $out/bin/huiontablet
 
       runHook postInstall
     '';
