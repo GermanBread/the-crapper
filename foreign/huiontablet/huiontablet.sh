@@ -32,6 +32,12 @@ ffmpeg -loglevel error -y -i <(spectacle -n -i -f -b -o /dev/stdout) -vf scale="
 kwriteconfig6 --file kcminputrc \
     --group Libinput --group 9580 --group 61165 --group 'HUION 256C PEN STYLUS' \
     --key MapToWorkspace --type bool true --notify &
+kwriteconfig6 --file kwinrc \
+    --group Xwayland --key XwaylandEavesdrops All --notify &
+kwriteconfig6 --file kwinrc \
+    --group Xwayland --key XwaylandEavesdropsMouse --type bool true --notify &
+kwriteconfig6 --file kwinrc \
+    --group Xwayland --key XwaylandEisNoPrompt --type bool true --notify &
 
 wait
 
