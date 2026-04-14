@@ -41,11 +41,12 @@
 , libX11
 , libgcc
 , libGL
+
+, alterKdeConfig ? true
+, autostart ? true
 }: let
-  inherit (kdePackages)
-    kconfig
-    ;
   inherit (lib)
+    optionalString
     makeBinPath
     ;
   driverPkg = stdenvNoCC.mkDerivation rec {
@@ -85,7 +86,12 @@
       # both files are identical
       # this probably isn't an effective space-saving measure
       # but I like it this way
-      ln -s $out/share/applications $out/etc/xdg/autostart
+      ${optionalString autostart "ln -s $out/share/applications $out/etc/xdg/autostart"}
+
+      ${optionalString alterKdeConfig ''
+        ln -s ${./kcminputrc} $out/etc/xdg/kcminputrc
+        ln -s ${./kwinrc} $out/etc/xdg/kwinrc
+      ''}
 
       cp -r $src/huion/huiontablet $out/lib/huiontablet
       cp -r $src/huion/huiontablet/res/rule $out/lib/udev/rules.d
@@ -103,7 +109,7 @@
       chmod 755 $out/lib/huiontablet
       substitute ${./huiontablet.sh} $out/lib/huiontablet/huiontablet.sh \
         --subst-var-by src $out \
-        --subst-var-by extras ${makeBinPath [ ffmpeg kconfig xmodmap xprop ]}
+        --subst-var-by extras ${makeBinPath [ ffmpeg xmodmap xprop ]}
       chmod 755 $out/lib/huiontablet/huiontablet.sh
       ln -s $out/lib/huiontablet/huiontablet.sh $out/bin/huiontablet
 
