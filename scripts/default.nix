@@ -10,7 +10,7 @@
 , lib
 }:
 let
-  scriptsModule = import ../../lib/modules/scripts.nix {
+  scriptsModule = import ../lib/modules/scripts.nix {
     inherit runCommand makeWrapper;
     inherit (lib) types;
     inherit lib;
