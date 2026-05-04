@@ -1,18 +1,20 @@
 #!/usr/bin/env bash
 
-pkgs="$(nix-instantiate --eval --expr '<nixpkgs>')"
-path=
-if [ $# -le 1 ]; then
+declare pkgs='' path=''
+
+if [ $# -lt 2 ]; then
 cat <<-EOF
-not enough arguments given
+At least two arguments expected:
 
-  nixpkpgs subpath
-  query/args...
-
-regex supported
+ - Subpath in <nixpkgs>
+ - Search term (RegExp)
+ - Arguments to grep ... (optional)
 EOF
-  exit 1
+    exit 1
 fi
+
+pkgs="$(nix-instantiate --eval --expr '<nixpkgs>')"
 path="$1"
 shift
-grep -ER "$@" "$pkgs/${path#/}" | sed "s,^$pkgs/,/etc/nixpkgs/,gm"
+
+grep -ER "$@" "$pkgs"'/'"${path#/}" | sed 's,^'"$pkgs"'/,/etc/nixpkgs/,gm'
