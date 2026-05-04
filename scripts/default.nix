@@ -31,6 +31,7 @@ in scriptsModule.evalDefs {
     publicip = {};
     nr = {};
 
+    nixpkgs-inspect.aliases = [ "ni" "ne" ];
     nixpkgs-grep = {
       aliases = [ "ng" ];
       paths = [ gnugrep ];
