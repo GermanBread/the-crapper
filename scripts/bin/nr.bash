@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 
 # ASSUMPTIONS
-# /etc/nixpkgs is a symlink to the system's ${pkgs.path}
-# /etc/nixos is a symlink to the system config (may be in the store)
+# /etc/nixos (referred to by this script as: $root) is a symlink to the nixos configuration(s)
+# $root/vars.nix exists and exposes: npins inputs (via: import ./npins), an instance of nixpkgs and an instance of nixpkgs' lib
+# $root/hosts.nix exists and exposes: KV-pair of hostname and return value of `<nixpkgs/nixos/lib/eval-config.nix>`
 
 host="$(hostname -s)"
 
