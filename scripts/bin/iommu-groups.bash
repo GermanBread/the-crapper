@@ -2,8 +2,7 @@
 # enable glob, error on unset variable, exit on error, pipe exit
 set +f -eu
 # match nothing instead of being treated as string
-shopt -s nullglob
-shopt -s extglob
+shopt -s nullglob extglob
 {
     cd /sys/kernel/iommu_groups
     iommu_groups=($(printf "%s\n" * | sort -V))

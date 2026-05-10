@@ -1,4 +1,5 @@
 #!/bin/sh
+shopt -s failglob
 for usb_ctrl in /sys/bus/pci/devices/*/usb*; do
     pci_path=${usb_ctrl%/*}
     iommu_group=$(readlink "$pci_path/iommu_group")
