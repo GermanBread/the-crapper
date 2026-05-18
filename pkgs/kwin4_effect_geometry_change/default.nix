@@ -9,7 +9,7 @@ stdenvNoCC.mkDerivation {
   src = fetchFromGitHub {
     repo = "kwin4_effect_geometry_change";
     owner = "peterfajdiga";
-    rev = "25d92f1fc19c547a9b7b04c3db3cfa150bf3531b";
+    rev = "398491e8a3f5b9bb785850439abd41820f3c5986";
     hash = "sha256-pa3lHSZ2FtxCh9hyE+3PyV/q/moe15cE3wO0aQEH2vA=";
   };
 
