@@ -26,8 +26,8 @@ done
 
 wait
 
-# scaling factor is "close enough", only works on 100% scaling for ALL screens
-ffmpeg -loglevel error -y -i <(spectacle -n -i -f -b -o /dev/stdout) -vf scale="iw*1/4":-1 res/screen.png &
+# you need to adjust this
+ffmpeg -loglevel error -y -i <(spectacle -n -i -f -b -o /dev/stdout) -vf scale="iw*@ffmpegScaleArg@":-1 res/screen.png &
 
 wait
 

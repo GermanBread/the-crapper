@@ -36,6 +36,7 @@
 , libgcc
 , libGL
 
+, screenshotScaleFactor ? "1/4"
 , alterKdeConfig ? true
 , autostart ? true
 }: let
@@ -103,7 +104,8 @@
       chmod 755 $out/lib/huiontablet
       substitute ${./huiontablet.sh} $out/lib/huiontablet/huiontablet.sh \
         --subst-var-by src $out \
-        --subst-var-by extras ${makeBinPath [ ffmpeg xmodmap xprop ]}
+        --subst-var-by extras ${makeBinPath [ ffmpeg xmodmap xprop ]} \
+        --subst-var-by ffmpegScaleArg ${screenshotScaleFactor}
       chmod 755 $out/lib/huiontablet/huiontablet.sh
       ln -s $out/lib/huiontablet/huiontablet.sh $out/bin/huiontablet
 
