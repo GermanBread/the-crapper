@@ -5,6 +5,10 @@ set -u
 trap 'exit 130' INT
 
 spinner() {
+    if [[ ! -t 1 ]]; then
+        "$@"
+        return
+    fi
     log="$(mktemp -t log.XXXXX)"
     ("$@" &>"$log") &
     proc=$!
