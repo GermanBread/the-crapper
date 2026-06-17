@@ -19,7 +19,7 @@ exec nix repl --expr '
         vars = import '"$root/vars.nix"';
         hosts = import '"$root/hosts.nix"';
         inherit (builtins) trace;
-        inherit (vars) inputs pkgs lib;
+        inherit (vars) inputs pkgs channel lib;
         inherit (lib) flatten;
         inherit (pkgs) pkgsCross nixos;
         commoncfg = {
@@ -61,6 +61,7 @@ exec nix repl --expr '
             hosts      -  all host configs
 
             inputs     -  pinned inputs
+            channel    -  current nixpkgs channel (with overlays)
             flakes     -  inputs imported through flake-compat
 
             pkgs       -  pkgs with overlays
@@ -85,7 +86,7 @@ exec nix repl --expr '
             evalNixOSWithHM
     ''"' {
         inherit hosts hmConfig hmUsers;
-        inherit (vars) pkgs lib inputs flakes;
+        inherit (vars) pkgs lib inputs channel flakes;
         inherit (hosts."'"$host"'") config options _module extendModules;
         inherit pkgsCross evalNixOS evalHomeManager evalNixOSWithHM;
     }
