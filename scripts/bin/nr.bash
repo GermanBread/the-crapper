@@ -19,7 +19,7 @@ exec nix repl --expr '
         vars = import '"$root/vars.nix"';
         hosts = import '"$root/hosts.nix"';
         inherit (builtins) trace;
-        inherit (vars) inputs pkgs channel lib vars pkgsUnstable channelUnstable;
+        inherit (vars) inputs pkgs lib;
         inherit (lib) flatten;
         inherit (pkgs) pkgsCross nixos;
         commoncfg = {
@@ -90,8 +90,8 @@ exec nix repl --expr '
             evalHomeManager
             evalNixOSWithHM
     ''"' {
-        inherit hosts hmConfig hmUsers;
-        inherit (vars) pkgs lib inputs channel flakes;
+        inherit hosts hmConfig hmUsers vars;
+        inherit (vars) pkgs lib inputs channel flakes pkgsUnstable channelUnstable;
         inherit (hosts."'"$host"'") config options _module extendModules;
         inherit pkgsCross evalNixOS evalHomeManager evalNixOSWithHM;
     }
