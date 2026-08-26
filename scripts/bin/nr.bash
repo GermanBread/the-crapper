@@ -19,7 +19,7 @@ exec nix repl --expr '
         vars = import '"$root/vars.nix"';
         hosts = import '"$root/hosts.nix"';
         inherit (builtins) trace;
-        inherit (vars) inputs pkgs channel lib;
+        inherit (vars) inputs pkgs channel lib vars pkgsUnstable channelUnstable;
         inherit (lib) flatten;
         inherit (pkgs) pkgsCross nixos;
         commoncfg = {
@@ -60,13 +60,18 @@ exec nix repl --expr '
         Variables in scope:
             hosts      -  all host configs
 
+            vars       -  imported vars.nix
             inputs     -  pinned inputs
+
             channel    -  current nixpkgs channel (with overlays)
             flakes     -  inputs imported through flake-compat
 
             pkgs       -  pkgs with overlays
             lib        -  lib with extensions
             pkgsCross  -  pkgs with cross compile
+
+            pkgsUnstable       -  nixos-unstable
+            channelUnstable    -  nixos-unstable as channel
 
         user($USER) variables in scope:
             hmConfig
