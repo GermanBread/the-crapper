@@ -74,7 +74,7 @@ for i in "${!iommu_groups[@]}"; do
         esac
         dev_data[device]="${pci_data_raw[3]}"
         dev_data[driver]="${DRIVER}"
-        
+
         [ -e /sys/kernel/iommu_groups/"${group_num}"/devices/"${device_id}"/reset ] && \
             echo -ne "\033[32mReset\033[37m" # device can be reset
         [ -e /sys/kernel/iommu_groups/"${group_num}"/devices/"${device_id}"/reset ] && [[ ${#children[@]} -eq 0 ]] && echo -n ' '
@@ -102,7 +102,7 @@ done | column -t -s $'\t' -o ' ' | {
     if [ -t 1 ] && [ -z "${NO_COLOR:-}" ]; then
         # normal terminal, output colored
         cat
-    else 
+    else
         # pipe, requested, etc.. = monochrome
         sed -E $'s,\033\\[[0-9;]*[a-zA-Z],,gm'
     fi
