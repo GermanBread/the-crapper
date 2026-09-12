@@ -41,7 +41,7 @@ if [[ -n "${usersList[*]}" ]]; then
 fi
 
 echo "removing generations for global profiles..."
-for p in /nix/var/nix/profiles/per-user/*/profile; do
+for p in /nix/var/nix/profiles/per-user/*/{profile,home-manager}; do
     spinner nix-env --profile "$p" --delete-generations +3
 done
 spinner nix-env --profile /nix/var/nix/profiles/system --delete-generations +3
