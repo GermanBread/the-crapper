@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 set -u
+shopt -s nullglob
 
 trap 'exit 130' INT
 
@@ -33,19 +34,22 @@ echo -ne "\033[0m\033[?7l"
 
 IFS=$'\n' read -r -d '' -a usersList < <(getent shadow | awk -F':' '$2 != "!" {print$1}' | uniq)
 if [[ -n "${usersList[*]}" ]]; then
-    echo "running garbage collection for users ( ${usersList[@]} )..."
+    echo "removing generations for users ( ${usersList[@]} )..."
     for i in "${usersList[@]}"; do
-        spinner su "$i" -lc 'nix-collect-garbage -d'
+        spinner su "$i" -lc 'nix-env --delete-generations +3'
     done
 fi
 
-echo "running garbage collection..."
-spinner nix-collect-garbage -d
+echo "removing generations for global profiles..."
+for p in /nix/var/nix/profiles/per-user/*/profile; do
+    spinner nix-env --profile "$p" --delete-generations +3
+done
+spinner nix-env --profile /nix/var/nix/profiles/system --delete-generations +3
 
 echo "nuking boot entries..."
 spinner /nix/var/nix/profiles/system/bin/switch-to-configuration boot
 
-echo "running garbage collection again..."
+echo "running garbage collection..."
 spinner nix-collect-garbage
 
 echo "done"
